@@ -248,8 +248,8 @@ const PrivacyPolicy = () => (
         </div>
         <p className="text-sm sm:text-base text-light-text-secondary leading-relaxed">
           We may revise this policy to reflect app improvements or legal
-          updates. You'll be notified in-app if changes are material. Continued
-          use of the app implies acceptance of the updated policy.
+          updates. You will be notified in-app if changes are material.
+          Continued use of the app implies acceptance of the updated policy.
         </p>
       </div>
 
