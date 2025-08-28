@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Hero from "./components/Hero";
-
+import FadeInSection from "./components/FadeInSection";
 export default function Home() {
   return (
     <>
-      <Hero />
+      <FadeInSection>
+        <Hero />
+      </FadeInSection>
     </>
   );
 }
