@@ -1,0 +1,87 @@
+"use client";
+
+import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+
+const sections = [
+  { key: "home", label: "Home", path: "/#hero" },
+  { key: "features", label: "Features", path: "/#features" },
+  { key: "explore", label: "Explore", path: "/#explore" },
+];
+
+interface NavigationProps {
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (open: boolean) => void;
+}
+
+const HEADER_HEIGHT = 64;
+
+const Navigation: React.FC<NavigationProps> = ({
+  isMobileMenuOpen,
+  setIsMobileMenuOpen,
+}) => {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    section: (typeof sections)[number]
+  ) => {
+    if (section.path.startsWith("/#")) {
+      e.preventDefault();
+      const id = section.path.replace("/#", "");
+
+      if (pathname !== "/") {
+        router.push(`/#${id}`);
+        setIsMobileMenuOpen(false);
+        return;
+      }
+
+      const el = document.getElementById(id);
+      if (el) {
+        const y =
+          el.getBoundingClientRect().top + window.pageYOffset - HEADER_HEIGHT;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+
+      setIsMobileMenuOpen(false);
+    } else {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  return (
+    <nav className="flex flex-col md:flex-row items-center gap-6 md:gap-6 bg-transparent w-full">
+      {sections.map((section) => {
+        const isActive =
+          section.path === "/"
+            ? pathname === "/"
+            : section.path.startsWith("#")
+            ? false
+            : pathname?.startsWith(section.path);
+
+        return (
+          <a
+            key={section.key}
+            href={section.path}
+            onClick={(e) => handleLinkClick(e, section)}
+            className={`
+              font-semibold px-5 py-2 rounded-xl transition-all duration-200 border border-[#fbe6e6] shadow-md
+              text-lg md:text-base relative
+              focus:outline-none focus:ring-2 focus:ring-[#C62828] focus:ring-offset-2 focus:ring-offset-white/80
+              ${
+                isActive
+                  ? "bg-gradient-to-r from-[#C62828] to-[#EF5350] text-white hover:from-[#b71c1c] hover:to-[#d32f2f] shadow-lg"
+                  : "bg-[#fbe6e6] text-[#C62828] hover:bg-[#ffe5e0] hover:text-[#b71c1c]"
+              }
+            `}
+          >
+            {section.label}
+          </a>
+        );
+      })}
+    </nav>
+  );
+};
+
+export default Navigation;
