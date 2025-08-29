@@ -1,50 +1,34 @@
-# syntax=docker/dockerfile:1.6
-
-# 1. Builder Stage: Build the Next.js application
-FROM node:20-alpine AS builder
+# 1. Dependencies Stage
+FROM node:20-alpine AS deps
 WORKDIR /app
 
-ENV NODE_ENV=production
-# Disable Next.js telemetry
-ENV NEXT_TELEMETRY_DISABLED 1
-
-# Install OS dependencies
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat && apk upgrade --no-cache
 
 # Copy package manager files
 COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
 
-# Install ALL dependencies (including dev dependencies for the build)
+# Install ONLY production dependencies (for runner later)
+RUN if [ -f package-lock.json ]; then npm ci --only=production && npm cache clean --force; \
+    elif [ -f yarn.lock ]; then corepack enable && yarn install --frozen-lockfile --production && yarn cache clean; \
+    elif [ -f pnpm-lock.yaml ]; then corepack enable && pnpm install --frozen-lockfile --prod && pnpm store prune; \
+    else npm install --only=production && npm cache clean --force; fi
+
+# 2. Builder Stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+ENV NEXT_TELEMETRY_DISABLED=1 NODE_ENV=production
+
+RUN apk add --no-cache libc6-compat && apk upgrade --no-cache
+
+# Copy all deps again, but now install devDependencies
+COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
 RUN if [ -f package-lock.json ]; then npm ci; \
     elif [ -f yarn.lock ]; then corepack enable && yarn install --frozen-lockfile; \
     elif [ -f pnpm-lock.yaml ]; then corepack enable && pnpm install --frozen-lockfile; \
     else npm install; fi
 
-# Copy the rest of the application source code
+# Copy app code
 COPY . .
 
-# Build the Next.js application with standalone output
+# Build Next.js app
 RUN npm run build
-
-# 2. Runner Stage: Create the final, minimal production image
-FROM node:20-alpine AS runner
-WORKDIR /app
-
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV PORT 8080
-
-# Create a non-root user for security
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
-
-USER nextjs
-
-# Copy the standalone output from the builder stage
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-EXPOSE 8080
-
-CMD ["node", "server.js"]
