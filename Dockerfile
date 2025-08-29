@@ -27,7 +27,10 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN npm run build
+# Clean install and build
+RUN rm -rf node_modules && \
+    npm ci && \
+    npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
