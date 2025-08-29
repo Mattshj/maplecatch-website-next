@@ -55,8 +55,8 @@ const Header: React.FC = () => {
             src="/assets/Logo.png"
             alt="MapleCatch Logo"
             className=" object-contain drop-shadow-md group-hover:rotate-[-6deg] transition-transform duration-300"
-            width={88}
-            height={88}
+            width={140}
+            height={140}
           />
         </motion.a>
 
