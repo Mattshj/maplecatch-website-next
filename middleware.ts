@@ -27,7 +27,13 @@ function getClientIp(request: NextRequest): string {
 	}
 	const realIp = request.headers.get('x-real-ip');
 	if (realIp) return realIp;
-	return request.ip ?? 'unknown';
+	const cfIp = request.headers.get('cf-connecting-ip');
+	if (cfIp) return cfIp;
+	const flyIp = request.headers.get('fly-client-ip');
+	if (flyIp) return flyIp;
+	const trueClientIp = request.headers.get('true-client-ip');
+	if (trueClientIp) return trueClientIp;
+	return 'unknown';
 }
 
 function takeTokenNow(ip: string): { allowed: boolean; remaining: number; resetAtMs: number } {
@@ -47,7 +53,16 @@ function takeTokenNow(ip: string): { allowed: boolean; remaining: number; resetA
 }
 
 export function middleware(request: NextRequest) {
-	// Skip for static assets and Next internals (also configured via matcher below)
+	// Exclude static assets and Next internals
+	const pathname = request.nextUrl.pathname;
+	if (
+		pathname.startsWith('/_next') ||
+		pathname.startsWith('/favicon.ico') ||
+		/\.(?:js|css|png|jpg|jpeg|gif|svg|ico|webp|avif|txt|xml|woff|woff2|ttf|otf)$/.test(pathname)
+	) {
+		return NextResponse.next();
+	}
+
 	const ip = getClientIp(request);
 	const { allowed, remaining, resetAtMs } = takeTokenNow(ip);
 
@@ -74,9 +89,6 @@ export function middleware(request: NextRequest) {
 
 // Exclude static files, _next internals, images, icons, and public assets. Apply to all other routes.
 export const config = {
-	matcher: [
-		// Skip for static and assets
-		'/(?!_next/.*|.*\\.(?:js|css|png|jpg|jpeg|gif|svg|ico|webp|avif|txt|xml|woff|woff2|ttf|otf)$).*',
-	],
+	matcher: '/:path*',
 };
 
