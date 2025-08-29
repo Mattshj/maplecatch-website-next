@@ -17,12 +17,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your App Name",
-  description: "A secure and privacy-focused web application",
-  keywords: ["security", "privacy", "web app"],
-  authors: [{ name: "Your Name" }],
-  creator: "Your Name",
-  publisher: "Your Company",
+  title: "MapleCatch",
+  description:
+    "MapleCatch is a smart shopping web app for Canadians to create shopping lists, discover local brands, and enjoy a secure, privacy-focused experience.",
+  keywords: [
+    "MapleCatch",
+    "smart shopping",
+    "Canadian brands",
+    "shopping list",
+    "local businesses",
+    "secure web app",
+    "privacy-focused",
+    "shop smarter",
+  ],
+  icons: {
+    icon: [{ url: "/assets/favicon.png", type: "image/png", sizes: "42x42" }],
+    shortcut: "/assets/Designer.png", // default favicon
+    apple: "/assets/Designer.png", // for Apple touch devices
+  },
+  authors: [{ name: "Matthew Jaberi" }],
+  creator: "Matthew Jaberi",
+  publisher: "MapleCatch",
   formatDetection: {
     email: false,
     address: false,
@@ -53,8 +68,8 @@ export const metadata: Metadata = {
     "color-scheme": "light dark",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "default",
-    "apple-mobile-web-app-title": "Your App",
-    "application-name": "Your App",
+    "apple-mobile-web-app-title": "MapleCatch",
+    "application-name": "MapleCatch",
     "msapplication-TileColor": "#000000",
     "msapplication-config": "/browserconfig.xml",
   },
