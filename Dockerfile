@@ -1,47 +1,50 @@
 # syntax=docker/dockerfile:1.6
 
-# 1. Dependencies Stage
-FROM node:20-alpine AS deps
+# 1. Builder Stage: Build the Next.js application
+FROM node:20-alpine AS builder
 WORKDIR /app
 
-RUN apk add --no-cache libc6-compat && apk upgrade --no-cache
+ENV NODE_ENV=production
+# Disable Next.js telemetry
+ENV NEXT_TELEMETRY_DISABLED 1
+
+# Install OS dependencies
+RUN apk add --no-cache libc6-compat
 
 # Copy package manager files
 COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
 
-# Install ALL dependencies (dev + prod) for build
+# Install ALL dependencies (including dev dependencies for the build)
 RUN if [ -f package-lock.json ]; then npm ci; \
     elif [ -f yarn.lock ]; then corepack enable && yarn install --frozen-lockfile; \
     elif [ -f pnpm-lock.yaml ]; then corepack enable && pnpm install --frozen-lockfile; \
     else npm install; fi
 
-# 2. Builder Stage
-FROM node:20-alpine AS builder
-WORKDIR /app
-ENV NEXT_TELEMETRY_DISABLED=1 NODE_ENV=production
-
-RUN apk add --no-cache libc6-compat && apk upgrade --no-cache
-
-COPY --from=deps /app/node_modules ./node_modules
+# Copy the rest of the application source code
 COPY . .
 
-# Build Next.js app (needs devDependencies)
+# Build the Next.js application with standalone output
 RUN npm run build
 
-# 3. Runner Stage (minimal image)
+# 2. Runner Stage: Create the final, minimal production image
 FROM node:20-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=8080
 
-# Create non-root user
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED 1
+ENV PORT 8080
+
+# Create a non-root user for security
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
+
 USER nextjs
 
-# Copy standalone build output
+# Copy the standalone output from the builder stage
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 EXPOSE 8080
+
 CMD ["node", "server.js"]
