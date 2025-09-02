@@ -9,9 +9,9 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gradient-to-br from-[#2d0b0b] via-[#3a1c1c] to-[#1a1a1a] text-white pt-10 pb-4 mt-10 border-t-4 border-[#C62828]/40">
+    <footer className="w-full bg-gradient-to-br from-cocoa-900 via-cocoa-800 to-near-black text-white pt-10 pb-4 mt-10 border-t-4 border-primary/40">
       <div className="max-w-6xl mx-auto px-4 sm:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-[#C62828]/20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-primary/20">
           {/* Logo & About */}
           <div className="flex flex-col items-start gap-3">
             <Image
@@ -31,28 +31,28 @@ const Footer = () => {
             <div className="flex gap-3 mt-2">
               <a
                 href="#"
-                className="hover:text-[#C62828] transition-colors"
+                className="hover:text-primary transition-colors"
                 aria-label="Twitter"
               >
                 <FaTwitter />
               </a>
               <a
                 href="https://www.instagram.com/maplecatch/"
-                className="hover:text-[#C62828] transition-colors"
+                className="hover:text-primary transition-colors"
                 aria-label="Instagram"
               >
                 <FaInstagram />
               </a>
               <a
                 href="#"
-                className="hover:text-[#C62828] transition-colors"
+                className="hover:text-primary transition-colors"
                 aria-label="Facebook"
               >
                 <FaFacebookF />
               </a>
               <a
                 href="mailto:support@maplecatch.com"
-                className="hover:text-[#C62828] transition-colors"
+                className="hover:text-primary transition-colors"
                 aria-label="Email"
               >
                 <FaEnvelope />
@@ -62,12 +62,12 @@ const Footer = () => {
 
           {/* Legal */}
           <div>
-            <h3 className="font-semibold text-lg mb-3 text-[#C62828]">Legal</h3>
+            <h3 className="font-semibold text-lg mb-3 text-primary">Legal</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/privacy"
-                  className="hover:text-[#C62828] transition-colors text-white/80"
+                  className="hover:text-primary transition-colors text-white/80"
                 >
                   Privacy Policy
                 </Link>
@@ -75,7 +75,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/terms"
-                  className="hover:text-[#C62828] transition-colors text-white/80"
+                  className="hover:text-primary transition-colors text-white/80"
                 >
                   Terms of Service
                 </Link>
@@ -85,14 +85,12 @@ const Footer = () => {
 
           {/* Support */}
           <div>
-            <h3 className="font-semibold text-lg mb-3 text-[#C62828]">
-              Support
-            </h3>
+            <h3 className="font-semibold text-lg mb-3 text-primary">Support</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/help"
-                  className="hover:text-[#C62828] transition-colors text-white/80"
+                  className="hover:text-primary transition-colors text-white/80"
                 >
                   FAQ
                 </Link>
@@ -100,7 +98,7 @@ const Footer = () => {
               <li>
                 <a
                   href="mailto:support@maplecatch.com"
-                  className="hover:text-[#C62828] transition-colors text-white/80"
+                  className="hover:text-primary transition-colors text-white/80"
                 >
                   Contact Us
                 </a>
@@ -110,7 +108,7 @@ const Footer = () => {
                   href="https://ko-fi.com/maplecatch"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 mt-2 rounded-lg font-semibold bg-[#C62828] text-white hover:bg-[#b71c1c] transition-colors shadow-md border-none focus:outline-none focus:ring-2 focus:ring-[#C62828] focus:ring-offset-2"
+                  className="inline-flex items-center gap-2 px-4 py-2 mt-2 rounded-lg font-semibold bg-primary text-white hover:bg-primary-dark transition-colors shadow-md border-none focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   aria-label="Support us on Ko-fi"
                 >
                   <span role="img" aria-label="coffee">
@@ -124,7 +122,7 @@ const Footer = () => {
 
           {/* Download */}
           <div>
-            <h3 className="font-semibold text-lg mb-3 text-[#C62828]">
+            <h3 className="font-semibold text-lg mb-3 text-primary">
               Get the App
             </h3>
             <div className="flex flex-col gap-3">
@@ -166,7 +164,7 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} MapleCatch. All rights reserved.
           </span>
           <span>
-            Made with <span className="text-[#C62828]">♥</span> in Canada
+            Made with <span className="text-primary">♥</span> in Canada
           </span>
         </div>
       </div>

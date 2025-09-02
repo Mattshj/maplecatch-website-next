@@ -23,6 +23,19 @@ module.exports = {
         "inter-extrabold": ["Inter", "sans-serif"],
       },
       colors: {
+        // Flat, easy-to-use named colors for utilities like text-*, bg-*, border-*
+        primary: '#C62828',
+        'primary-light': '#EF5350',
+        'primary-dark': '#b71c1c',
+        'primary-darker': '#d32f2f',
+        // Soft rose backgrounds/borders used in gradients and UI accents
+        'rose-50': '#fff8f6',
+        'rose-100': '#ffe5e0',
+        'rose-200': '#fbe6e6',
+        // Deep cocoa/near-black shades for footer gradient and text
+        'cocoa-900': '#2d0b0b',
+        'cocoa-800': '#3a1c1c',
+        'near-black': '#1a1a1a',
         light: {
           primary: '#C62828',
           primaryLight: '#EF5350',

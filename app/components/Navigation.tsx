@@ -66,13 +66,13 @@ const Navigation: React.FC<NavigationProps> = ({
             href={section.path}
             onClick={(e) => handleLinkClick(e, section)}
             className={`
-              font-semibold px-5 py-2 rounded-xl transition-all duration-200 border border-[#fbe6e6] shadow-md
+              font-semibold px-5 py-2 rounded-xl transition-all duration-200 border border-rose-200 shadow-md
               text-lg md:text-base relative
-              focus:outline-none focus:ring-2 focus:ring-[#C62828] focus:ring-offset-2 focus:ring-offset-white/80
+              focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white/80
               ${
                 isActive
-                  ? "bg-gradient-to-r from-[#C62828] to-[#EF5350] text-white hover:from-[#b71c1c] hover:to-[#d32f2f] shadow-lg"
-                  : "bg-[#fbe6e6] text-[#C62828] hover:bg-[#ffe5e0] hover:text-[#b71c1c]"
+                  ? "bg-gradient-to-r from-primary to-primary-light text-white hover:from-primary-dark hover:to-primary-darker shadow-lg"
+                  : "bg-rose-200 text-primary hover:bg-rose-100 hover:text-primary-dark"
               }
             `}
           >

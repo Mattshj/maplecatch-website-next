@@ -95,9 +95,9 @@ export default function ScreenshotCard() {
     <div className="min-h-screen flex flex-col mt-24 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-[#C62828]/10 to-[#EF5350]/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-[#EF5350]/10 to-[#C62828]/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-[#C62828]/5 to-[#EF5350]/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/10 to-primary-light/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-primary-light/10 to-primary/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/5 to-primary-light/5 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
 
       {/* Header Section */}
@@ -106,18 +106,18 @@ export default function ScreenshotCard() {
         className="flex-1 flex flex-col items-center justify-center px-4 py-6 relative z-10"
       >
         <div className="relative w-full flex flex-col items-center mb-8">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C62828]/10 to-[#EF5350]/10 backdrop-blur-sm border border-[#C62828]/20 rounded-full px-4 py-2 mb-4">
-            <div className="w-2 h-2 bg-[#C62828] rounded-full animate-pulse"></div>
-            <span className="text-[#C62828] font-medium text-sm">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-primary-light/10 backdrop-blur-sm border border-primary/20 rounded-full px-4 py-2 mb-4">
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+            <span className="text-primary font-medium text-sm">
               Live Preview
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 bg-gradient-to-r from-[#C62828] via-[#EF5350] to-[#C62828] bg-clip-text text-transparent drop-shadow-2xl animate-gradient-x tracking-tight text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 bg-gradient-to-r from-primary via-primary-light to-primary bg-clip-text text-transparent drop-shadow-2xl animate-gradient-x tracking-tight text-center">
             Explore MapleCatch in Action
           </h2>
 
-          <div className="w-2/3 h-1 mx-auto bg-gradient-to-r from-[#C62828] via-[#EF5350] to-[#C62828] rounded-full blur-[2px] opacity-80 mb-6 animate-pulse"></div>
+          <div className="w-2/3 h-1 mx-auto bg-gradient-to-r from-primary via-primary-light to-primary rounded-full blur-[2px] opacity-80 mb-6 animate-pulse"></div>
 
           <p className="text-gray-600 text-center max-w-2xl text-lg leading-relaxed">
             Experience the seamless interface and powerful features that make
@@ -138,7 +138,7 @@ export default function ScreenshotCard() {
           {/* Left Arrow */}
           <button
             onClick={() => goTo("prev")}
-            className="absolute left-1 sm:-left-8 lg:-left-16 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md hover:bg-white/90 text-[#C62828] rounded-full p-2 sm:p-3 lg:p-4 z-10 shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110 border border-[#C62828]/20"
+            className="absolute left-1 sm:-left-8 lg:-left-16 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md hover:bg-white/90 text-primary rounded-full p-2 sm:p-3 lg:p-4 z-10 shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110 border border-primary/20"
             aria-label="Previous screenshot"
           >
             <FaChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
@@ -176,16 +176,16 @@ export default function ScreenshotCard() {
               {/* Loading State */}
               {isLoading && (
                 <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C62828]"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                 </div>
               )}
             </div>
 
             {/* Floating Controls */}
-            <div className="absolute -bottom-12 sm:-bottom-12 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-md rounded-full px-4 sm:px-6 py-2 sm:py-3 shadow-xl border border-[#C62828]/20 hover:shadow-2xl transition-all duration-300">
+            <div className="absolute -bottom-12 sm:-bottom-12 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-md rounded-full px-4 sm:px-6 py-2 sm:py-3 shadow-xl border border-primary/20 hover:shadow-2xl transition-all duration-300">
               <button
                 onClick={() => setPaused(!paused)}
-                className="text-[#C62828] hover:text-[#EF5350] transition-colors duration-200 flex items-center gap-2"
+                className="text-primary hover:text-primary-light transition-colors duration-200 flex items-center gap-2"
                 aria-label={paused ? "Play slideshow" : "Pause slideshow"}
               >
                 {paused ? (
@@ -205,10 +205,10 @@ export default function ScreenshotCard() {
 
           {/* Description Card */}
           <div className="mt-8 mb-4 px-4 order-2 sm:order-1">
-            <div className="bg-gradient-to-r from-[#C62828]/5 to-[#EF5350]/5 backdrop-blur-sm border border-[#C62828]/20 rounded-2xl p-4 sm:p-6 shadow-lg w-80 mx-auto min-h-[100px] sm:min-h-[120px] flex flex-col justify-center">
+            <div className="bg-gradient-to-r from-primary/5 to-primary-light/5 backdrop-blur-sm border border-primary/20 rounded-2xl p-4 sm:p-6 shadow-lg w-80 mx-auto min-h-[100px] sm:min-h-[120px] flex flex-col justify-center">
               <div className="flex items-center justify-center mb-2 sm:mb-3">
-                <div className="w-2 h-2 bg-gradient-to-r from-[#C62828] to-[#EF5350] rounded-full animate-pulse mr-2 sm:mr-3"></div>
-                <span className="text-[#C62828] font-medium text-xs sm:text-sm">
+                <div className="w-2 h-2 bg-gradient-to-r from-primary to-primary-light rounded-full animate-pulse mr-2 sm:mr-3"></div>
+                <span className="text-primary font-medium text-xs sm:text-sm">
                   Current Feature
                 </span>
               </div>
@@ -221,7 +221,7 @@ export default function ScreenshotCard() {
           {/* Right Arrow */}
           <button
             onClick={() => goTo("next")}
-            className="absolute right-1 sm:-right-8 lg:-right-16 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md hover:bg-white/90 text-[#C62828] rounded-full p-2 sm:p-3 lg:p-4 z-10 shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110 border border-[#C62828]/20"
+            className="absolute right-1 sm:-right-8 lg:-right-16 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md hover:bg-white/90 text-primary rounded-full p-2 sm:p-3 lg:p-4 z-10 shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110 border border-primary/20"
             aria-label="Next screenshot"
           >
             <FaChevronRight className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
@@ -242,7 +242,7 @@ export default function ScreenshotCard() {
               <div
                 className={`w-4 h-4 rounded-full transition-all duration-300 ${
                   index === current
-                    ? "bg-gradient-to-r from-[#C62828] to-[#EF5350] shadow-lg"
+                    ? "bg-gradient-to-r from-primary to-primary-light shadow-lg"
                     : "bg-gray-300 hover:bg-gray-400"
                 }`}
               />
@@ -259,7 +259,7 @@ export default function ScreenshotCard() {
         <div className="w-full max-w-md mt-6">
           <div className="w-full bg-gray-200 rounded-full h-1">
             <div
-              className="bg-gradient-to-r from-[#C62828] to-[#EF5350] h-1 rounded-full transition-all duration-300 ease-out"
+              className="bg-gradient-to-r from-primary to-primary-light h-1 rounded-full transition-all duration-300 ease-out"
               style={{
                 width: `${((current + 1) / screenshots.length) * 100}%`,
               }}
