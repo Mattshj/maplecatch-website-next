@@ -37,9 +37,9 @@ const Header: React.FC = () => {
           ${
             isOpen
               ? "bg-white"
-              : "bg-gradient-to-b from-white via-white to-[#fbe6e6]"
+              : "bg-gradient-to-b from-white via-white to-rose-200"
           }
-          text-[#2d0b0b]`}
+          text-cocoa-900`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -72,7 +72,7 @@ const Header: React.FC = () => {
 
         {/* Mobile toggle button */}
         <motion.button
-          className="md:hidden text-2xl p-2 rounded-lg text-[#C62828] hover:bg-red-100 transition-colors mobile-menu z-[101]"
+          className="md:hidden text-2xl p-2 rounded-lg text-primary hover:bg-red-100 transition-colors mobile-menu z-[101]"
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
@@ -113,9 +113,9 @@ const Header: React.FC = () => {
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="relative w-[90vw] max-w-sm bg-white/80 backdrop-blur-xl border border-[#fbe6e6] rounded-3xl shadow-2xl flex flex-col items-center py-10 px-6 gap-8">
+              <div className="relative w-[90vw] max-w-sm bg-white/80 backdrop-blur-xl border border-rose-200 rounded-3xl shadow-2xl flex flex-col items-center py-10 px-6 gap-8">
                 <button
-                  className="absolute top-4 right-4 text-3xl text-[#C62828] bg-white/70 rounded-full p-2 shadow hover:bg-[#ffe5e0] transition-all z-10"
+                  className="absolute top-4 right-4 text-3xl text-primary bg-white/70 rounded-full p-2 shadow hover:bg-rose-100 transition-all z-10"
                   onClick={() => setIsOpen(false)}
                   aria-label="Close menu"
                 >
@@ -132,7 +132,7 @@ const Header: React.FC = () => {
 
         {!isOpen && (
           <motion.div
-            className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-[#C62828] to-[#EF5350]"
+            className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-primary to-primary-light"
             style={{ width: "100%" }}
             transition={{ duration: 0.3 }}
           />
