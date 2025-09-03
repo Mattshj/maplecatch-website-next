@@ -3,6 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { ErrorProvider } from "./contexts/ErrorContext";
+import ErrorToastContainer from "./components/ErrorToastContainer";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { initializeErrorHandler } from "./utils/errorHandler";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -80,6 +84,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Initialize global error handler
+  if (typeof window !== "undefined") {
+    initializeErrorHandler({
+      onError: (error, errorInfo) => {
+        console.error("Global error caught:", error, errorInfo);
+      },
+      onUnhandledRejection: (reason, promise) => {
+        console.error("Unhandled promise rejection:", reason, promise);
+      },
+    });
+  }
+
   return (
     <html lang="en">
       <head>
@@ -112,9 +128,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        {children}
-        <Footer />
+        <ErrorProvider>
+          <ErrorBoundary>
+            <Header />
+            {children}
+            <Footer />
+            <ErrorToastContainer />
+          </ErrorBoundary>
+        </ErrorProvider>
       </body>
     </html>
   );

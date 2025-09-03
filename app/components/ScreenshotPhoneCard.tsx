@@ -5,6 +5,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image"; // Import the Next.js Image component
 import { FaChevronLeft, FaChevronRight, FaPlay, FaPause } from "react-icons/fa";
+import { useError } from "../contexts/ErrorContext";
+import { safeAsync } from "../utils/errorHandler";
 
 // Update image paths to be relative to the `public` folder
 const screenshots = [
@@ -36,7 +38,9 @@ export default function ScreenshotCard() {
   const [isLoading, setIsLoading] = useState(true);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
   const carouselRef = useRef<HTMLDivElement>(null);
+  const { reportError } = useError();
 
   useEffect(() => {
     if (paused) return;
@@ -53,41 +57,81 @@ export default function ScreenshotCard() {
   }, []);
 
   const goTo = (direction: "prev" | "next") => {
-    setCurrent((prev) =>
-      direction === "next"
-        ? (prev + 1) % screenshots.length
-        : (prev - 1 + screenshots.length) % screenshots.length
-    );
+    try {
+      setCurrent((prev) =>
+        direction === "next"
+          ? (prev + 1) % screenshots.length
+          : (prev - 1 + screenshots.length) % screenshots.length
+      );
+    } catch (error) {
+      const err =
+        error instanceof Error
+          ? error
+          : new Error("Failed to navigate carousel");
+      reportError(err, "ScreenshotPhoneCard", `goTo-${direction}`);
+    }
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
+    try {
+      setTouchStart(e.targetTouches[0].clientX);
+    } catch (error) {
+      const err =
+        error instanceof Error
+          ? error
+          : new Error("Failed to handle touch start");
+      reportError(err, "ScreenshotPhoneCard", "touchStart");
+    }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    try {
+      setTouchEnd(e.targetTouches[0].clientX);
+    } catch (error) {
+      const err =
+        error instanceof Error
+          ? error
+          : new Error("Failed to handle touch move");
+      reportError(err, "ScreenshotPhoneCard", "touchMove");
+    }
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
+    try {
+      if (!touchStart || !touchEnd) return;
+      const distance = touchStart - touchEnd;
+      const isLeftSwipe = distance > 50;
+      const isRightSwipe = distance < -50;
 
-    if (isLeftSwipe) {
-      goTo("next");
-    }
-    if (isRightSwipe) {
-      goTo("prev");
+      if (isLeftSwipe) {
+        goTo("next");
+      }
+      if (isRightSwipe) {
+        goTo("prev");
+      }
+    } catch (error) {
+      const err =
+        error instanceof Error
+          ? error
+          : new Error("Failed to handle touch end");
+      reportError(err, "ScreenshotPhoneCard", "touchEnd");
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") goTo("prev");
-    if (e.key === "ArrowRight") goTo("next");
-    if (e.key === " ") {
-      e.preventDefault();
-      setPaused(!paused);
+    try {
+      if (e.key === "ArrowLeft") goTo("prev");
+      if (e.key === "ArrowRight") goTo("next");
+      if (e.key === " ") {
+        e.preventDefault();
+        setPaused(!paused);
+      }
+    } catch (error) {
+      const err =
+        error instanceof Error
+          ? error
+          : new Error("Failed to handle keyboard input");
+      reportError(err, "ScreenshotPhoneCard", "keyDown");
     }
   };
 
@@ -169,6 +213,13 @@ export default function ScreenshotCard() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                     priority={index === 0} // Prioritize loading the first image
+                    onError={() => {
+                      const error = new Error(
+                        `Failed to load image: ${screenshot.src}`
+                      );
+                      reportError(error, "ScreenshotPhoneCard", "imageLoad");
+                      setImageErrors((prev) => new Set(prev).add(index));
+                    }}
                   />
                 </div>
               ))}
@@ -177,6 +228,42 @@ export default function ScreenshotCard() {
               {isLoading && (
                 <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+              )}
+
+              {/* Error State for Images */}
+              {imageErrors.has(current) && (
+                <div className="absolute inset-0 bg-gray-100 flex flex-col items-center justify-center p-4">
+                  <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                    <svg
+                      className="w-8 h-8 text-red-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-red-600 text-center text-sm font-medium">
+                    Failed to load image
+                  </p>
+                  <button
+                    onClick={() => {
+                      setImageErrors((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(current);
+                        return newSet;
+                      });
+                    }}
+                    className="mt-2 text-xs text-gray-500 hover:text-gray-700 underline"
+                  >
+                    Retry
+                  </button>
                 </div>
               )}
             </div>
