@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import ErrorToastContainer from "./components/ErrorToastContainer";
 import ErrorBoundary from "./components/ErrorBoundary";
+import PageLoader from "./components/PageLoader";
 import { initializeErrorHandler } from "./utils/errorHandler";
 
 const geistSans = Geist({
@@ -130,10 +131,12 @@ export default function RootLayout({
       >
         <ErrorProvider>
           <ErrorBoundary>
-            <Header />
-            {children}
-            <Footer />
-            <ErrorToastContainer />
+            <PageLoader>
+              <Header />
+              {children}
+              <Footer />
+              <ErrorToastContainer />
+            </PageLoader>
           </ErrorBoundary>
         </ErrorProvider>
       </body>
