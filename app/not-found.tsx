@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NotFoundBackButton from "./components/NotFoundBackButton";
 
 export default function NotFound() {
   return (
@@ -36,13 +37,9 @@ export default function NotFound() {
           >
             Go Home
           </Link>
+          {/* Client component for the Go Back button */}
 
-          <button
-            onClick={() => window.history.back()}
-            className="w-full bg-gray-200 text-gray-700 px-6 py-3 rounded-md hover:bg-gray-300 transition-colors font-medium"
-          >
-            Go Back
-          </button>
+          <NotFoundBackButton />
         </div>
 
         <div className="mt-6 pt-6 border-t border-gray-200">
