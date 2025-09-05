@@ -45,7 +45,7 @@ export default function Error({ error, reset }: ErrorProps) {
         </h1>
 
         <p className="text-gray-600 mb-6">
-          We're sorry, but an unexpected error occurred. Our team has been
+          We&apos;re sorry, but an unexpected error occurred. Our team has been
           notified and is working to fix this issue.
         </p>
 

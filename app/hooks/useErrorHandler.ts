@@ -39,7 +39,7 @@ export function useErrorHandler() {
     setGlobalError(message);
   }, [setGlobalError]);
 
-  const withErrorHandling = useCallback(<T extends any[], R>(
+  const withErrorHandling = useCallback(<T extends unknown[], R>(
     fn: (...args: T) => R | Promise<R>,
     context?: string
   ) => {
