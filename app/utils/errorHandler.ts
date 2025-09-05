@@ -1,9 +1,9 @@
 "use client";
 
 interface ErrorHandlerOptions {
-  onError?: (error: Error, errorInfo?: any) => void;
-  onUnhandledRejection?: (reason: any, promise: Promise<any>) => void;
-  onConsoleError?: (message: string, ...args: any[]) => void;
+  onError?: (error: Error, errorInfo?: Record<string, unknown>) => void;
+  onUnhandledRejection?: (reason: unknown, promise: Promise<unknown>) => void;
+  onConsoleError?: (message: string, ...args: unknown[]) => void;
 }
 
 class GlobalErrorHandler {
@@ -19,117 +19,94 @@ class GlobalErrorHandler {
   }
 
   private setup() {
-    // Handle unhandled promise rejections
-    window.addEventListener('unhandledrejection', this.handleUnhandledRejection.bind(this));
-
-    // Handle runtime errors
-    window.addEventListener('error', this.handleError.bind(this));
-
-    // Handle console errors and warnings
+    window.addEventListener("unhandledrejection", this.handleUnhandledRejection.bind(this));
+    window.addEventListener("error", this.handleError.bind(this));
     this.interceptConsole();
 
-    // Handle React error boundary errors (if using React 18+)
-    if (typeof window !== 'undefined' && window.addEventListener) {
-      window.addEventListener('react-error-boundary-error', this.handleReactError.bind(this));
+    if (typeof window !== "undefined" && window.addEventListener) {
+      window.addEventListener("react-error-boundary-error", this.handleReactError.bind(this) as EventListener);
     }
   }
 
   private handleError(event: ErrorEvent) {
     const error = new Error(event.message);
     error.stack = event.error?.stack || event.message;
-    
-    console.error('Global error caught:', error);
-    
-    if (this.options.onError) {
-      this.options.onError(error, {
-        filename: event.filename,
-        lineno: event.lineno,
-        colno: event.colno,
-        error: event.error,
+
+    console.error("Global error caught:", error);
+
+    this.options.onError?.(error, {
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+      error: event.error,
+    });
+  }
+
+  private handleUnhandledRejection(event: PromiseRejectionEvent) {
+    const reason: unknown = event.reason;
+    const promise: Promise<unknown> = event.promise;
+
+    console.error("Unhandled promise rejection:", reason);
+
+    this.options.onUnhandledRejection?.(reason, promise);
+  }
+
+  private handleReactError(event: CustomEvent<{ error: Error; componentStack?: string }>) {
+    const error = event.detail?.error;
+    if (error) {
+      console.error("React error boundary error:", error);
+
+      this.options.onError?.(error, {
+        componentStack: event.detail?.componentStack,
+        errorBoundary: true,
       });
     }
   }
 
-  private handleUnhandledRejection(event: PromiseRejectionEvent) {
-    const reason = event.reason;
-    const promise = event.promise;
-    
-    console.error('Unhandled promise rejection:', reason);
-    
-    if (this.options.onUnhandledRejection) {
-      this.options.onUnhandledRejection(reason, promise);
-    }
-  }
-
-  private handleReactError(event: CustomEvent) {
-    const error = event.detail?.error;
-    if (error) {
-      console.error('React error boundary error:', error);
-      
-      if (this.options.onError) {
-        this.options.onError(error, {
-          componentStack: event.detail?.componentStack,
-          errorBoundary: true,
-        });
-      }
-    }
-  }
-
   private interceptConsole() {
-    // Intercept console.error
-    console.error = (...args) => {
+    console.error = (...args: unknown[]) => {
       this.originalConsoleError.apply(console, args);
-      
+
       if (this.options.onConsoleError) {
-        const message = args.map(arg => 
-          typeof arg === 'string' ? arg : JSON.stringify(arg)
-        ).join(' ');
+        const message = args
+          .map((arg) => (typeof arg === "string" ? arg : JSON.stringify(arg)))
+          .join(" ");
         this.options.onConsoleError(message, ...args);
       }
     };
 
-    // Intercept console.warn
-    console.warn = (...args) => {
+    console.warn = (...args: unknown[]) => {
       this.originalConsoleWarn.apply(console, args);
-      
-      // You could add warning handling here if needed
     };
   }
 
   public cleanup() {
-    // Remove event listeners
-    window.removeEventListener('unhandledrejection', this.handleUnhandledRejection.bind(this));
-    window.removeEventListener('error', this.handleError.bind(this));
-    
-    // Restore original console methods
+    window.removeEventListener("unhandledrejection", this.handleUnhandledRejection.bind(this));
+    window.removeEventListener("error", this.handleError.bind(this));
+
     console.error = this.originalConsoleError;
     console.warn = this.originalConsoleWarn;
   }
 
-  public reportError(error: Error, context?: any) {
-    console.error('Error reported:', error, context);
-    
-    if (this.options.onError) {
-      this.options.onError(error, context);
-    }
+  public reportError(error: Error, context?: Record<string, unknown>) {
+    console.error("Error reported:", error, context);
+    this.options.onError?.(error, context);
   }
 }
 
-// Create a default instance
 let defaultHandler: GlobalErrorHandler | null = null;
 
 export function initializeErrorHandler(options?: ErrorHandlerOptions) {
   if (defaultHandler) {
     defaultHandler.cleanup();
   }
-  
   defaultHandler = new GlobalErrorHandler(options);
   return defaultHandler;
 }
 
 export function getErrorHandler() {
   if (!defaultHandler) {
-    throw new Error('Error handler not initialized. Call initializeErrorHandler() first.');
+    throw new Error("Error handler not initialized. Call initializeErrorHandler() first.");
   }
   return defaultHandler;
 }
@@ -141,7 +118,6 @@ export function cleanupErrorHandler() {
   }
 }
 
-// Utility function to safely execute async operations
 export async function safeAsync<T>(
   operation: () => Promise<T>,
   fallback?: T,
@@ -149,40 +125,31 @@ export async function safeAsync<T>(
 ): Promise<T> {
   try {
     return await operation();
-  } catch (error) {
+  } catch (error: unknown) {
     const err = error instanceof Error ? error : new Error(String(error));
-    
-    if (defaultHandler) {
-      defaultHandler.reportError(err, { context: errorContext });
-    }
-    
+
+    defaultHandler?.reportError(err, { context: errorContext });
+
     if (fallback !== undefined) {
       return fallback;
     }
-    
+
     throw err;
   }
 }
 
-// Utility function to safely execute sync operations
-export function safeSync<T>(
-  operation: () => T,
-  fallback?: T,
-  errorContext?: string
-): T {
+export function safeSync<T>(operation: () => T, fallback?: T, errorContext?: string): T {
   try {
     return operation();
-  } catch (error) {
+  } catch (error: unknown) {
     const err = error instanceof Error ? error : new Error(String(error));
-    
-    if (defaultHandler) {
-      defaultHandler.reportError(err, { context: errorContext });
-    }
-    
+
+    defaultHandler?.reportError(err, { context: errorContext });
+
     if (fallback !== undefined) {
       return fallback;
     }
-    
+
     throw err;
   }
 }
