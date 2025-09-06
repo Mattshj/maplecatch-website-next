@@ -1,3 +1,8 @@
+# MapleCatch
+
+⚠️ **Proprietary Software**  
+This repository contains the source code for MapleCatch. All rights are reserved. You may **view and study the code** for personal or educational purposes only. Any commercial use, public redistribution, or derivative work is strictly prohibited. See [LICENSE](./LICENSE) for details.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
