@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -8,6 +8,14 @@ import ErrorToastContainer from "./components/ErrorToastContainer";
 import ErrorBoundary from "./components/ErrorBoundary";
 import PageLoader from "./components/PageLoader";
 import { initializeErrorHandler } from "./utils/errorHandler";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  preload: true,
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -110,24 +118,10 @@ export default function RootLayout({
         {/* Prevent search engines from archiving */}
         <meta name="robots" content="noarchive" />
 
-        {/* DNS Prefetch for performance */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-
-        {/* Preconnect for critical resources */}
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
+        {/* DNS Prefetch for performance - Next.js handles Google Fonts optimization automatically */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ErrorProvider>
           <ErrorBoundary>

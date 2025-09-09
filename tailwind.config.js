@@ -16,11 +16,12 @@ module.exports = {
         '2xl': '1536px',
       },
       fontFamily: {
-        inter: ["Inter", "sans-serif"],
-        "inter-medium": ["Inter", "sans-serif"],
-        "inter-semibold": ["Inter", "sans-serif"],
-        "inter-bold": ["Inter", "sans-serif"],
-        "inter-extrabold": ["Inter", "sans-serif"],
+        inter: ["var(--font-inter)", "Inter", "sans-serif"],
+        "inter-medium": ["var(--font-inter)", "Inter", "sans-serif"],
+        "inter-semibold": ["var(--font-inter)", "Inter", "sans-serif"],
+        "inter-bold": ["var(--font-inter)", "Inter", "sans-serif"],
+        "inter-extrabold": ["var(--font-inter)", "Inter", "sans-serif"],
+        sans: ["var(--font-inter)", "Inter", "sans-serif"],
       },
       colors: {
         // Flat, easy-to-use named colors for utilities like text-*, bg-*, border-*
