@@ -7,7 +7,7 @@ import {
   FaInfoCircle,
   FaExclamationCircle,
 } from "react-icons/fa";
-import { useError } from "../contexts/ErrorContext";
+// import { useError } from "../contexts/ErrorContext"; // Not used in this component
 
 interface ErrorToastProps {
   error: {

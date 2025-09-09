@@ -16,10 +16,7 @@ interface NavigationProps {
 
 const HEADER_HEIGHT = 64;
 
-const Navigation: React.FC<NavigationProps> = ({
-  isMobileMenuOpen,
-  setIsMobileMenuOpen,
-}) => {
+const Navigation: React.FC<NavigationProps> = ({ setIsMobileMenuOpen }) => {
   const pathname = usePathname();
   const router = useRouter();
 

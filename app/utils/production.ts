@@ -3,7 +3,7 @@ export const isProduction = process.env.NODE_ENV === 'production';
 
 // Disable React DevTools in production
 if (isProduction && typeof window !== 'undefined') {
-  // @ts-expect-error
+  // @ts-expect-error - Disabling React DevTools in production for performance
   window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
     isDisabled: true,
     supportsFiber: true,

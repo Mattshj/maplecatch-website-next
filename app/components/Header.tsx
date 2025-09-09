@@ -7,24 +7,10 @@ import { FaBars, FaTimes } from "./icons";
 
 import Navigation from "./Navigation";
 
-// Optimize framer-motion imports
-const MotionHeader = motion.header;
-const MotionA = motion.a;
-const MotionButton = motion.button;
-const MotionDiv = motion.div;
+// Optimize framer-motion imports - using direct motion components
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  const handleScroll = useCallback(() => {
-    setIsScrolled(window.scrollY > 50);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

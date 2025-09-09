@@ -6,7 +6,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image"; // Import the Next.js Image component
 import { FaChevronLeft, FaChevronRight, FaPlay, FaPause } from "./icons";
 import { useError } from "../contexts/ErrorContext";
-import { safeAsync } from "../utils/errorHandler";
+// import { safeAsync } from "../utils/errorHandler"; // Not used in this component
 
 // Update image paths to be relative to the `public` folder
 const screenshots = [

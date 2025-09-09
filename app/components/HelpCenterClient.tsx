@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import HelpCenterServer, { FAQ } from "./HelpCenterServer";
+import HelpCenterServer from "./HelpCenterServer";
 
 const FAQS = [
   {
