@@ -4,7 +4,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image"; // Import the Next.js Image component
-import { FaChevronLeft, FaChevronRight, FaPlay, FaPause } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaPlay, FaPause } from "./icons";
 import { useError } from "../contexts/ErrorContext";
 import { safeAsync } from "../utils/errorHandler";
 

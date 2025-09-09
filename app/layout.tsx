@@ -8,6 +8,7 @@ import ErrorToastContainer from "./components/ErrorToastContainer";
 import ErrorBoundary from "./components/ErrorBoundary";
 import PageLoader from "./components/PageLoader";
 import { initializeErrorHandler } from "./utils/errorHandler";
+import "./utils/production"; // Disable React DevTools in production
 
 const inter = Inter({
   variable: "--font-inter",

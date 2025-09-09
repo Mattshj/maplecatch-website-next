@@ -5,7 +5,7 @@ import {
   FaUserAlt,
   FaSignInAlt,
   FaShieldAlt,
-} from "react-icons/fa";
+} from "./icons";
 
 const features = [
   {

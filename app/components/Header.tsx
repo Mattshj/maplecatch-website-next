@@ -3,9 +3,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes } from "./icons";
 
 import Navigation from "./Navigation";
+
+// Optimize framer-motion imports
+const MotionHeader = motion.header;
+const MotionA = motion.a;
+const MotionButton = motion.button;
+const MotionDiv = motion.div;
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
