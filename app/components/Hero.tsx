@@ -53,8 +53,8 @@ const Hero: React.FC = () => {
                 src="/assets/GoogleBadge.png"
                 alt="Get it on Google Play"
                 width={120}
-                height={48}
-                style={{ width: "120px", height: "40px" }}
+                height={42}
+                style={{ width: "120px", height: "42px" }}
               />
             </a>
           </div>
