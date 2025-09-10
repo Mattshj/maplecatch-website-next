@@ -12,11 +12,13 @@ const Hero: React.FC = () => {
             MapleCatch 12+
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-[3rem] leading-tight font-extrabold text-primary mb-4 drop-shadow-sm">
-            Your local shopping buddy
+            Shop Local in Canada <br />
+            Support Small & Canadian-Owned Businesses
           </h1>
           <p className="text-lg sm:text-xl text-gray-700 mb-6 font-medium">
-            MapleCatch helps you shop smarter and support local Canadian
-            businesses — all in one simple, powerful app.
+            MapleCatch is your shopping companion for discovering Canadian-made
+            products, supporting local businesses, and finding sustainable,
+            community-driven brands across Canada.
           </p>
           <ul className="text-base sm:text-lg text-gray-600 mb-8 space-y-2 text-left list-disc list-inside">
             <li>
@@ -28,6 +30,10 @@ const Hero: React.FC = () => {
               brands to help you buy local with confidence.
             </li>
           </ul>
+          <p className="text-base sm:text-lg text-gray-600 mb-6 italic">
+            Discover Canadian shops near you, buy local, and make every purchase
+            count towards strengthening small businesses in your community.
+          </p>
           <div className="flex flex-wrap justify-center items-center lg:justify-start gap-4 mb-8">
             <a
               href="https://apps.apple.com/app/maplecatch/id6748413094"
@@ -64,7 +70,7 @@ const Hero: React.FC = () => {
         <div className="flex justify-center flex-1 max-w-md">
           <Image
             src="/assets/AppScreen.png"
-            alt="App Screenshot"
+            alt="MapleCatch App Screenshot – Shop Local in Canada"
             className="w-[200px] sm:max-w-[320px] sm:w-full object-contain rounded-3xl shadow-2xl border-2 border-primary/20 bg-white"
             width={320}
             height={640}
