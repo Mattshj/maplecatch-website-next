@@ -4,7 +4,11 @@ import { FaTwitter, FaInstagram, FaFacebookF, FaEnvelope } from "./icons";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gradient-to-br from-cocoa-900 via-cocoa-800 to-near-black text-white pt-10 pb-4 mt-10 border-t-4 border-primary/40">
+    <footer
+      className="w-full bg-gradient-to-br from-cocoa-900 via-cocoa-800 to-near-black text-white pt-10 pb-4 mt-10 border-t-4 border-primary/40"
+      role="contentinfo"
+      aria-label="Site footer"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-primary/20">
           {/* Logo & About */}
@@ -23,32 +27,42 @@ const Footer = () => {
               lists, discover Canadian brands, and personalize your experience.
               Your local shopping buddy!
             </p>
-            <div className="flex gap-3 mt-2">
+            <div
+              className="flex gap-3 mt-2"
+              role="list"
+              aria-label="Social media links"
+            >
               <a
                 href="#"
-                className="hover:text-primary transition-colors"
-                aria-label="Twitter"
+                className="hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
+                aria-label="Follow us on Twitter (opens in new tab)"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaTwitter />
               </a>
               <a
                 href="https://www.instagram.com/maplecatch/"
-                className="hover:text-primary transition-colors"
-                aria-label="Instagram"
+                className="hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
+                aria-label="Follow us on Instagram (opens in new tab)"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaInstagram />
               </a>
               <a
                 href="#"
-                className="hover:text-primary transition-colors"
-                aria-label="Facebook"
+                className="hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
+                aria-label="Follow us on Facebook (opens in new tab)"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaFacebookF />
               </a>
               <a
                 href="mailto:support@maplecatch.com"
-                className="hover:text-primary transition-colors"
-                aria-label="Email"
+                className="hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
+                aria-label="Send us an email"
               >
                 <FaEnvelope />
               </a>
@@ -58,11 +72,15 @@ const Footer = () => {
           {/* Legal */}
           <div>
             <h3 className="font-semibold text-lg mb-3 text-primary">Legal</h3>
-            <ul className="space-y-2">
+            <ul
+              className="space-y-2"
+              role="list"
+              aria-label="Legal information"
+            >
               <li>
                 <Link
                   href="/privacy"
-                  className="hover:text-primary transition-colors text-white/80"
+                  className="hover:text-primary transition-colors text-white/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
                 >
                   Privacy Policy
                 </Link>
@@ -70,7 +88,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/terms"
-                  className="hover:text-primary transition-colors text-white/80"
+                  className="hover:text-primary transition-colors text-white/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
                 >
                   Terms of Service
                 </Link>
@@ -81,11 +99,15 @@ const Footer = () => {
           {/* Support */}
           <div>
             <h3 className="font-semibold text-lg mb-3 text-primary">Support</h3>
-            <ul className="space-y-2">
+            <ul
+              className="space-y-2"
+              role="list"
+              aria-label="Support resources"
+            >
               <li>
                 <Link
                   href="/help"
-                  className="hover:text-primary transition-colors text-white/80"
+                  className="hover:text-primary transition-colors text-white/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
                 >
                   FAQ
                 </Link>
@@ -93,7 +115,7 @@ const Footer = () => {
               <li>
                 <a
                   href="mailto:support@maplecatch.com"
-                  className="hover:text-primary transition-colors text-white/80"
+                  className="hover:text-primary transition-colors text-white/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
                 >
                   Contact Us
                 </a>
@@ -120,16 +142,21 @@ const Footer = () => {
             <h3 className="font-semibold text-lg mb-3 text-primary">
               Get the App
             </h3>
-            <div className="flex flex-col gap-3">
+            <div
+              className="flex flex-col gap-3"
+              role="group"
+              aria-label="Download MapleCatch app"
+            >
               <a
                 href="https://apps.apple.com/app/maplecatch/id6748413094"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:scale-105 transition-transform"
+                className="hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
+                aria-label="Download MapleCatch on the App Store (opens in new tab)"
               >
                 <Image
                   src="/assets/download-on-app-store.svg"
-                  alt="Download on the App Store"
+                  alt="Download MapleCatch on the App Store"
                   width={140}
                   height={48}
                   className="h-12 w-auto"
@@ -139,11 +166,12 @@ const Footer = () => {
                 href="https://play.google.com/store/apps/details?id=com.matthewjaberi.maplecatch&hl=en_US"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:scale-105 transition-transform"
+                className="hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
+                aria-label="Download MapleCatch on Google Play (opens in new tab)"
               >
                 <Image
                   src="/assets/GoogleBadge.png"
-                  alt="Get it on Google Play"
+                  alt="Download MapleCatch on Google Play"
                   width={140}
                   height={48}
                   className="h-12 w-auto"

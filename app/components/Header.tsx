@@ -35,17 +35,20 @@ const Header: React.FC = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
+        role="banner"
+        aria-label="Main navigation"
       >
         {/* Logo */}
         <motion.a
           href="/"
-          className="flex items-center gap-2 group"
+          className="flex items-center gap-2 group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          aria-label="MapleCatch - Go to homepage"
         >
           <Image
             src="/assets/Logo.png"
-            alt="MapleCatch Logo"
+            alt="MapleCatch logo - Canadian shopping app"
             className=" object-contain drop-shadow-md group-hover:rotate-[-6deg] transition-transform duration-300"
             width={140}
             height={140}
@@ -64,11 +67,13 @@ const Header: React.FC = () => {
 
         {/* Mobile toggle button */}
         <motion.button
-          className="md:hidden text-2xl p-2 rounded-lg text-primary hover:bg-red-100 transition-colors mobile-menu z-[101]"
+          className="md:hidden text-2xl p-2 rounded-lg text-primary hover:bg-red-100 transition-colors mobile-menu z-[101] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -104,12 +109,21 @@ const Header: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.3 }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="mobile-navigation-title"
             >
-              <div className="relative w-[90vw] max-w-sm bg-white/80 backdrop-blur-xl border border-rose-200 rounded-3xl shadow-2xl flex flex-col items-center py-10 px-6 gap-8">
+              <div
+                id="mobile-navigation"
+                className="relative w-[90vw] max-w-sm bg-white/80 backdrop-blur-xl border border-rose-200 rounded-3xl shadow-2xl flex flex-col items-center py-10 px-6 gap-8"
+              >
+                <h2 id="mobile-navigation-title" className="sr-only">
+                  Mobile Navigation Menu
+                </h2>
                 <button
-                  className="absolute top-4 right-4 text-3xl text-primary bg-white/70 rounded-full p-2 shadow hover:bg-rose-100 transition-all z-10"
+                  className="absolute top-4 right-4 text-3xl text-primary bg-white/70 rounded-full p-2 shadow hover:bg-rose-100 transition-all z-10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   onClick={() => setIsOpen(false)}
-                  aria-label="Close menu"
+                  aria-label="Close navigation menu"
                 >
                   <FaTimes />
                 </button>

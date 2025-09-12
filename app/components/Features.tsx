@@ -41,20 +41,35 @@ const features = [
 ];
 
 const FeaturesSection = () => (
-  <section id="features" className="max-w-5xl mx-auto mt-40 scroll-mt-16 px-2">
-    <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-6 text-center pt-20 ">
+  <section
+    id="features"
+    className="max-w-5xl mx-auto mt-40 scroll-mt-16 px-2"
+    aria-labelledby="features-heading"
+  >
+    <h2
+      id="features-heading"
+      className="text-2xl sm:text-3xl font-bold text-primary mb-6 text-center pt-20"
+    >
       Key Features
     </h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      role="list"
+      aria-label="MapleCatch app features"
+    >
       {features.map((f, i) => (
-        <div
+        <article
           key={i}
-          className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-primary/10 hover:shadow-2xl transition-shadow"
+          className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center border border-primary/10 hover:shadow-2xl transition-shadow focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2"
+          role="listitem"
+          tabIndex={0}
         >
-          <div className="mb-3">{f.icon}</div>
+          <div className="mb-3" aria-hidden="true">
+            {f.icon}
+          </div>
           <h3 className="font-semibold text-lg text-primary mb-2">{f.title}</h3>
           <p className="text-gray-600 text-sm">{f.desc}</p>
-        </div>
+        </article>
       ))}
     </div>
   </section>

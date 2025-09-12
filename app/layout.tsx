@@ -31,9 +31,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MapleCatch",
+  title: "MapleCatch - Shop Local in Canada | Support Canadian Businesses",
   description:
-    "MapleCatch is a smart shopping web app for Canadians to create shopping lists, discover local brands, and enjoy a secure, privacy-focused experience.",
+    "MapleCatch is a smart shopping web app for Canadians to create shopping lists, discover local brands, and enjoy a secure, privacy-focused experience. Support Canadian-owned businesses and shop local.",
   keywords: [
     "MapleCatch",
     "smart shopping",
@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     "secure web app",
     "privacy-focused",
     "shop smarter",
+    "Canadian-made products",
+    "local shopping",
+    "accessibility",
   ],
   icons: {
     icon: [{ url: "/assets/favicon.png", type: "image/png", sizes: "42x42" }],
@@ -118,6 +121,13 @@ export default function RootLayout({
 
         {/* Prevent search engines from archiving */}
         <meta name="robots" content="noarchive" />
+
+        {/* Accessibility Meta Tags */}
+        <meta name="accessibility" content="WCAG 2.1 AA compliant" />
+        <meta
+          name="accessibility-feature"
+          content="keyboard navigation, screen reader support, high contrast"
+        />
 
         {/* DNS Prefetch for performance - Next.js handles Google Fonts optimization automatically */}
       </head>

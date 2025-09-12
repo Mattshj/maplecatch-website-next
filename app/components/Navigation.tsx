@@ -48,7 +48,11 @@ const Navigation: React.FC<NavigationProps> = ({ setIsMobileMenuOpen }) => {
   };
 
   return (
-    <nav className="flex flex-col md:flex-row items-center gap-6 md:gap-6 bg-transparent w-full">
+    <nav
+      className="flex flex-col md:flex-row items-center gap-6 md:gap-6 bg-transparent w-full"
+      role="navigation"
+      aria-label="Main navigation"
+    >
       {sections.map((section) => {
         const isActive =
           section.path === "/"
@@ -72,6 +76,12 @@ const Navigation: React.FC<NavigationProps> = ({ setIsMobileMenuOpen }) => {
                   : "bg-rose-200 text-primary hover:bg-rose-100 hover:text-primary-dark"
               }
             `}
+            aria-current={isActive ? "page" : undefined}
+            aria-label={
+              section.path.startsWith("/#")
+                ? `${section.label} section`
+                : section.label
+            }
           >
             {section.label}
           </a>
