@@ -22,6 +22,9 @@ module.exports = {
         "inter-bold": ["var(--font-inter)", "Inter", "sans-serif"],
         "inter-extrabold": ["var(--font-inter)", "Inter", "sans-serif"],
         sans: ["var(--font-inter)", "Inter", "sans-serif"],
+        "geist-sans": ["var(--font-geist-sans)", "Geist", "sans-serif"],
+        "geist-mono": ["var(--font-geist-mono)", "Geist Mono", "monospace"],
+        mono: ["var(--font-geist-mono)", "Geist Mono", "monospace"],
       },
       colors: {
         // Flat, easy-to-use named colors for utilities like text-*, bg-*, border-*
