@@ -25,13 +25,9 @@ const Header: React.FC = () => {
   return (
     <>
       <motion.header
-        className={`fixed top-0 left-0 w-full z-50 h-20 flex items-center justify-between px-4 sm:px-6 md:px-8 shadow-lg transition-colors duration-300
-          ${
-            isOpen
-              ? "bg-white"
-              : "bg-gradient-to-b from-white via-white to-rose-200"
-          }
-          text-cocoa-900`}
+        className={
+          "fixed top-0 left-0 w-full z-50 h-20 flex items-center justify-between px-4 sm:px-6 md:px-8 shadow-lg transition-colors duration-300 bg-gradient-to-br from-cocoa-900 via-cocoa-800 to-near-black text-cocoa-900"
+        }
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
