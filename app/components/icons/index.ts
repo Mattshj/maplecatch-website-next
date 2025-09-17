@@ -19,3 +19,15 @@ export {
   FaPlay, 
   FaPause 
 } from "react-icons/fa";
+export { 
+  FaShoppingCart,
+  FaMapMarkerAlt,
+  FaHeart,
+  FaCog,
+  FaMobileAlt,
+  FaCheckCircle,
+  FaStar,
+  FaLeaf,
+  FaUsers,
+  FaGlobe
+} from "react-icons/fa";
