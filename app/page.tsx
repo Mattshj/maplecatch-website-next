@@ -9,9 +9,7 @@ export default function Home() {
       <FadeInSection>
         <Hero />
       </FadeInSection>
-      <FadeInSection>
-        <Features />
-      </FadeInSection>
+      <Features />
       <FadeInSection>
         <ScreenshotSection />
       </FadeInSection>

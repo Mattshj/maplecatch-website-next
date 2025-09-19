@@ -1,21 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   FaShoppingCart,
   FaMapMarkerAlt,
   FaSearch,
-  FaUserAlt,
   FaSignInAlt,
   FaShieldAlt,
-  FaHeart,
   FaCog,
-  FaMobileAlt,
   FaCheckCircle,
   FaStar,
   FaLeaf,
   FaUsers,
-  FaGlobe,
 } from "./icons";
 
 const features = [
@@ -88,20 +84,25 @@ const features = [
 ];
 
 const FeaturesSection = () => {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set());
 
+  // Memoize the intersection observer callback
+  const handleIntersection = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setVisibleCards((prev) => new Set(prev).add(entry.target.id));
+        }
+      });
+    },
+    []
+  );
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleCards((prev) => new Set(prev).add(entry.target.id));
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.1,
+      rootMargin: "50px", // Start animation slightly before element is visible
+    });
 
     features.forEach((feature) => {
       const element = document.getElementById(feature.id);
@@ -109,7 +110,7 @@ const FeaturesSection = () => {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [handleIntersection]);
 
   return (
     <section
@@ -117,11 +118,10 @@ const FeaturesSection = () => {
       className="relative py-20 px-4 overflow-hidden"
       aria-labelledby="features-heading"
     >
-      {/* Animated Background Elements */}
+      {/* Simplified Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/5 to-primary-light/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-primary-light/5 to-primary/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-primary/3 to-primary-light/3 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute -top-40 -right-40 w-60 h-60 bg-gradient-to-br from-primary/3 to-primary-light/3 rounded-full blur-2xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-60 h-60 bg-gradient-to-tr from-primary-light/3 to-primary/3 rounded-full blur-2xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -154,48 +154,31 @@ const FeaturesSection = () => {
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             const isVisible = visibleCards.has(feature.id);
-            const isHovered = hoveredCard === feature.id;
 
             return (
               <article
                 key={feature.id}
                 id={feature.id}
-                className={`group relative transform transition-all duration-700 ease-out ${
+                className={`group relative transform transition-all duration-500 ease-out ${
                   isVisible
                     ? "translate-y-0 opacity-100"
-                    : "translate-y-8 opacity-0"
+                    : "translate-y-4 opacity-0"
                 }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-                onMouseEnter={() => setHoveredCard(feature.id)}
-                onMouseLeave={() => setHoveredCard(null)}
+                style={{ transitionDelay: `${index * 50}ms` }}
                 role="listitem"
                 tabIndex={0}
               >
                 {/* Card Container */}
                 <div
-                  className={`relative h-full bg-gradient-to-br ${feature.bgGradient} backdrop-blur-sm border-2 ${feature.borderColor} rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2 cursor-pointer overflow-hidden`}
+                  className={`relative h-full bg-gradient-to-br ${feature.bgGradient} backdrop-blur-sm border-2 ${feature.borderColor} rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02] cursor-pointer overflow-hidden`}
                 >
-                  {/* Animated Background Gradient */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
-                  ></div>
-
-                  {/* Floating Elements */}
-                  <div className="absolute top-4 right-4 w-16 h-16 bg-white/20 rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
-                  <div className="absolute bottom-4 left-4 w-12 h-12 bg-white/10 rounded-full blur-lg group-hover:scale-125 transition-transform duration-500"></div>
-
                   {/* Icon Container */}
                   <div className="relative mb-6">
                     <div
-                      className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}
+                      className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-105`}
                     >
                       <IconComponent className="text-2xl text-white" />
                     </div>
-
-                    {/* Icon Glow Effect */}
-                    <div
-                      className={`absolute inset-0 w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-300`}
-                    ></div>
                   </div>
 
                   {/* Content */}
@@ -225,21 +208,6 @@ const FeaturesSection = () => {
                       </span>
                     </div>
                   </div>
-
-                  {/* Hover Effect Overlay */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-3xl`}
-                  ></div>
-
-                  {/* Border Animation */}
-                  <div
-                    className={`absolute inset-0 rounded-3xl border-2 border-transparent bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}
-                    style={{
-                      background: `linear-gradient(135deg, transparent, transparent), linear-gradient(135deg, var(--tw-gradient-stops))`,
-                      backgroundClip: "padding-box, border-box",
-                      backgroundOrigin: "padding-box, border-box",
-                    }}
-                  ></div>
                 </div>
               </article>
             );
