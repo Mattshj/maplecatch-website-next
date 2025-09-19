@@ -1,0 +1,29 @@
+User-agent: *
+Allow: /
+
+# Block static assets from indexing
+Disallow: /_next/
+Disallow: /api/
+Disallow: /*.woff2
+Disallow: /*.woff
+Disallow: /*.ttf
+Disallow: /*.otf
+Disallow: /*.css
+Disallow: /*.js
+Disallow: /*.png
+Disallow: /*.jpg
+Disallow: /*.jpeg
+Disallow: /*.gif
+Disallow: /*.svg
+Disallow: /*.ico
+Disallow: /*.webp
+Disallow: /*.avif
+
+# Allow important pages
+Allow: /
+Allow: /help
+Allow: /privacy
+Allow: /terms
+
+# Sitemap location
+Sitemap: https://maplecatch.com/sitemap.xml

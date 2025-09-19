@@ -121,6 +121,24 @@ export function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
+	// Handle URL parameters for SEO - redirect to clean URLs
+	const url = request.nextUrl.clone();
+	const searchParams = url.searchParams;
+	
+	// Handle common tracking parameters
+	if (searchParams.has('ref') || searchParams.has('utm_source') || searchParams.has('utm_medium') || searchParams.has('utm_campaign')) {
+		// Remove tracking parameters and redirect to clean URL
+		searchParams.delete('ref');
+		searchParams.delete('utm_source');
+		searchParams.delete('utm_medium');
+		searchParams.delete('utm_campaign');
+		searchParams.delete('utm_term');
+		searchParams.delete('utm_content');
+		
+		url.search = searchParams.toString();
+		return NextResponse.redirect(url, 301); // Permanent redirect
+	}
+
 	const ip = getClientIp(request);
 	const isSuspicious = isSuspiciousRequest(request);
 	const { allowed, remaining, resetAtMs, blocked } = takeTokenNow(ip, isSuspicious);

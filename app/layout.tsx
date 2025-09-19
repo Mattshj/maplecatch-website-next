@@ -119,8 +119,8 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
 
-        {/* Prevent search engines from archiving */}
-        <meta name="robots" content="noarchive" />
+        {/* Allow search engines to index and archive */}
+        <meta name="robots" content="index, follow, archive" />
 
         {/* Accessibility Meta Tags */}
         <meta name="accessibility" content="WCAG 2.1 AA compliant" />
