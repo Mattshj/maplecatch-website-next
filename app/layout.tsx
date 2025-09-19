@@ -49,8 +49,8 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [{ url: "/assets/favicon.png", type: "image/png", sizes: "42x42" }],
-    shortcut: "/assets/Designer.png", // default favicon
-    apple: "/assets/Designer.png", // for Apple touch devices
+    shortcut: "/assets/favicon.png", // default favicon
+    apple: "/assets/favicon.png", // for Apple touch devices
   },
   authors: [{ name: "Matthew Jaberi" }],
   creator: "Matthew Jaberi",
