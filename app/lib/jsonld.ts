@@ -71,7 +71,7 @@ export interface WebPageSchema {
       item: string;
     }>;
   };
-  mainEntity?: any;
+  mainEntity?: JobPostingSchema | FAQSchema;
 }
 
 export interface JobPostingSchema {
@@ -144,9 +144,7 @@ export function getOrganizationSchema(): OrganizationSchema {
       availableLanguage: ["English", "French"]
     },
     sameAs: [
-      // Add your social media URLs here when available
-      // "https://twitter.com/maplecatch",
-      // "https://linkedin.com/company/maplecatch"
+      // Add social URLs here
     ],
     address: {
       "@type": "PostalAddress",
@@ -191,7 +189,7 @@ export function getWebPageSchema({
   url: string;
   description: string;
   breadcrumb?: Array<{ name: string; url: string }>;
-  mainEntity?: any;
+  mainEntity?: JobPostingSchema | FAQSchema;
 }): WebPageSchema {
   const schema: WebPageSchema = {
     "@context": "https://schema.org",
@@ -237,7 +235,7 @@ export function getJobPostingSchema(): JobPostingSchema {
     title: "No Current Openings - Future Opportunities",
     description: "MapleCatch is not currently hiring, but we welcome passionate individuals who share our vision of supporting Canadian businesses and communities. Send us your resume for future opportunities.",
     datePosted: new Date().toISOString(),
-    validThrough: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 year from now
+    validThrough: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
     employmentType: "FULL_TIME",
     hiringOrganization: {
       "@type": "Organization",
@@ -272,6 +270,6 @@ export function getFAQSchema(faqs: Array<{ question: string; answer: string }>):
 }
 
 // Utility function to render JSON-LD script tag
-export function renderJsonLd(schema: any): string {
+export function renderJsonLd(schema: OrganizationSchema | WebSiteSchema | WebPageSchema | JobPostingSchema | FAQSchema): string {
   return `<script type="application/ld+json">${JSON.stringify(schema, null, 2)}</script>`;
 }
