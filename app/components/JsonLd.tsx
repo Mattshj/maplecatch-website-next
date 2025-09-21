@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 interface JsonLdProps {
-  data: any;
+  data: Record<string, unknown>; // safer than 'any'
 }
 
 export default function JsonLd({ data }: JsonLdProps) {
