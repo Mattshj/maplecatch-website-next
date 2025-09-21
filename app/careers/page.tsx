@@ -12,7 +12,7 @@ import { getWebPageSchema, getJobPostingSchema } from "../lib/jsonld";
 export const metadata: Metadata = {
   title: "Careers - Join Our Team",
   description:
-    "Explore career opportunities at MapleCatch. We're building the future of local shopping in Canada. Currently no positions available, but we'd love to hear from passionate individuals.",
+    "Explore career opportunities at MapleCatch. We&apos;re building the future of local shopping in Canada. Currently no positions available, but we&apos;d love to hear from passionate individuals.",
   keywords: [
     "MapleCatch careers",
     "jobs at MapleCatch",
@@ -44,7 +44,7 @@ export default function CareersPage() {
           name: "Careers - Join Our Team",
           url: `${baseUrl}/careers`,
           description:
-            "Explore career opportunities at MapleCatch. We're building the future of local shopping in Canada. Currently no positions available, but we'd love to hear from passionate individuals.",
+            "Explore career opportunities at MapleCatch. We&apos;re building the future of local shopping in Canada. Currently no positions available, but we&apos;d love to hear from passionate individuals.",
           breadcrumb: [
             { name: "Home", url: baseUrl },
             { name: "Careers", url: `${baseUrl}/careers` },
@@ -69,7 +69,7 @@ export default function CareersPage() {
           </h1>
 
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-inter-medium mb-8">
-            Help us build the future of local shopping in Canada. We're
+            Help us build the future of local shopping in Canada. We&apos;re
             passionate about supporting Canadian businesses and creating
             meaningful connections in our communities.
           </p>
@@ -89,9 +89,10 @@ export default function CareersPage() {
             </h2>
 
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              We're not actively hiring at the moment, but we're always
-              interested in connecting with passionate individuals who share our
-              vision of supporting Canadian businesses and communities.
+              We&apos;re not actively hiring at the moment, but we&apos;re
+              always interested in connecting with passionate individuals who
+              share our vision of supporting Canadian businesses and
+              communities.
             </p>
 
             <div className="bg-gradient-to-r from-primary/5 to-primary-light/5 rounded-2xl p-6 mb-8">
