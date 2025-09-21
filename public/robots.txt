@@ -21,6 +21,7 @@ Disallow: /*.avif
 
 # Allow important pages
 Allow: /
+Allow: /careers
 Allow: /help
 Allow: /privacy
 Allow: /terms

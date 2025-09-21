@@ -29,5 +29,6 @@ export {
   FaStar,
   FaLeaf,
   FaUsers,
-  FaGlobe
+  FaGlobe,
+  FaBriefcase
 } from "react-icons/fa";

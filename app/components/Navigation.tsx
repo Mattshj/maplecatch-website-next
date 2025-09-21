@@ -7,6 +7,7 @@ const sections = [
   { key: "home", label: "Home", path: "/#hero" },
   { key: "features", label: "Features", path: "/#features" },
   { key: "explore", label: "Explore", path: "/#explore" },
+  { key: "careers", label: "Careers", path: "/careers" },
 ];
 
 interface NavigationProps {
@@ -43,6 +44,9 @@ const Navigation: React.FC<NavigationProps> = ({ setIsMobileMenuOpen }) => {
 
       setIsMobileMenuOpen(false);
     } else {
+      // Handle regular page navigation
+      e.preventDefault();
+      router.push(section.path);
       setIsMobileMenuOpen(false);
     }
   };
