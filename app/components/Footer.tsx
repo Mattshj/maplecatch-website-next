@@ -9,8 +9,8 @@ const Footer = () => {
       role="contentinfo"
       aria-label="Site footer"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-primary/20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 pb-8 border-b border-primary/20">
           {/* Logo & About */}
           <div className="flex flex-col items-start gap-3">
             <Image
@@ -136,7 +136,19 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
+          <div>
+            <h3 className="font-semibold text-lg mb-3 text-primary">Company</h3>
+            <ul className="space-y-2" role="list" aria-label="About Company">
+              <li>
+                <Link
+                  href="/careers"
+                  className="hover:text-primary transition-colors text-white/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-cocoa-900 rounded"
+                >
+                  Careers
+                </Link>
+              </li>
+            </ul>
+          </div>
           {/* Download */}
           <div>
             <h3 className="font-semibold text-lg mb-3 text-primary">

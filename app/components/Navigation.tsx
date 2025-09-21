@@ -7,7 +7,6 @@ const sections = [
   { key: "home", label: "Home", path: "/#hero" },
   { key: "features", label: "Features", path: "/#features" },
   { key: "explore", label: "Explore", path: "/#explore" },
-  { key: "careers", label: "Careers", path: "/careers" },
 ];
 
 interface NavigationProps {
