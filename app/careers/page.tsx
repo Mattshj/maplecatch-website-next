@@ -6,6 +6,8 @@ import {
   FaUsers,
   FaLeaf,
 } from "../components/icons";
+import JsonLd from "../components/JsonLd";
+import { getWebPageSchema, getJobPostingSchema } from "../lib/jsonld";
 
 export const metadata: Metadata = {
   title: "Careers - Join Our Team",
@@ -32,8 +34,24 @@ export const metadata: Metadata = {
 };
 
 export default function CareersPage() {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://maplecatch.com";
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      {/* JSON-LD Structured Data */}
+      <JsonLd
+        data={getWebPageSchema({
+          name: "Careers - Join Our Team",
+          url: `${baseUrl}/careers`,
+          description:
+            "Explore career opportunities at MapleCatch. We're building the future of local shopping in Canada. Currently no positions available, but we'd love to hear from passionate individuals.",
+          breadcrumb: [
+            { name: "Home", url: baseUrl },
+            { name: "Careers", url: `${baseUrl}/careers` },
+          ],
+        })}
+      />
+      <JsonLd data={getJobPostingSchema()} />
       {/* Hero Section */}
       <section className="relative py-20 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary-light/5"></div>
@@ -140,9 +158,9 @@ export default function CareersPage() {
               </h3>
 
               <p className="text-gray-600 mb-6">
-                Even though we're not hiring right now, we'd love to hear from
-                you! Send us your resume and a note about why you're interested
-                in MapleCatch.
+                Even though we&apos;re not hiring right now, we&apos;d love to
+                hear from you! Send us your resume and a note about why
+                you&apos;re interested in MapleCatch.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -216,8 +234,8 @@ export default function CareersPage() {
                 Sustainability
               </h3>
               <p className="text-gray-600">
-                We're building for the long term, focusing on sustainable growth
-                and practices that benefit our users, partners, and the
+                We&apos;re building for the long term, focusing on sustainable
+                growth and practices that benefit our users, partners, and the
                 environment.
               </p>
             </div>
@@ -232,8 +250,8 @@ export default function CareersPage() {
             Ready to Make a Difference?
           </h2>
           <p className="text-lg text-gray-600 mb-8">
-            Even if we're not hiring right now, we'd love to connect with
-            passionate individuals who share our vision.
+            Even if we&apos;re not hiring right now, we&apos;d love to connect
+            with passionate individuals who share our vision.
           </p>
           <a
             href="mailto:support@maplecatch.com?subject=Future Career Opportunity - MapleCatch"

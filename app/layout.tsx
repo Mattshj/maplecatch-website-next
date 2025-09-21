@@ -9,6 +9,8 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import PageLoader from "./components/PageLoader";
 import { initializeErrorHandler } from "./utils/errorHandler";
 import "./utils/production"; // Disable React DevTools in production
+import JsonLd from "./components/JsonLd";
+import { getOrganizationSchema } from "./lib/jsonld";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -112,6 +114,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* JSON-LD Structured Data */}
+        <JsonLd data={getOrganizationSchema()} />
+
         {/* Security and Privacy Meta Tags */}
         <meta name="referrer" content="strict-origin-when-cross-origin" />
         <meta
