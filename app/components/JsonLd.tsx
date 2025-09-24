@@ -2,13 +2,18 @@
 
 import { useEffect } from "react";
 
-interface JsonLdProps {
-  data: Record<string, unknown>; // safer than 'any'
+// 1. Use a generic type <T> to make the props interface flexible.
+interface JsonLdProps<T> {
+  data: T;
 }
 
-export default function JsonLd({ data }: JsonLdProps) {
+// 2. Update the function to accept the generic type.
+// We constrain T to ensure it's always an object-like structure.
+export default function JsonLd<T extends Record<string, unknown>>({
+  data,
+}: JsonLdProps<T>) {
   useEffect(() => {
-    // Remove existing script if it exists
+    // This logic remains exactly the same.
     const existingScript = document.querySelector(
       'script[type="application/ld+json"]'
     );
@@ -16,19 +21,16 @@ export default function JsonLd({ data }: JsonLdProps) {
       existingScript.remove();
     }
 
-    // Create new script element
     const script = document.createElement("script");
     script.type = "application/ld+json";
     script.text = JSON.stringify(data);
     document.head.appendChild(script);
 
-    // Cleanup function
     return () => {
-      const scriptToRemove = document.querySelector(
-        'script[type="application/ld+json"]'
-      );
-      if (scriptToRemove) {
-        scriptToRemove.remove();
+      // Use a more specific selector to avoid removing the wrong script
+      // if multiple components were to use this logic.
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
       }
     };
   }, [data]);

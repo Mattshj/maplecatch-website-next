@@ -1,4 +1,4 @@
-export interface OrganizationSchema {
+export interface OrganizationSchema extends Record<string, unknown> {
   "@context": "https://schema.org";
   "@type": "Organization";
   name: string;
@@ -26,7 +26,7 @@ export interface OrganizationSchema {
   };
 }
 
-export interface WebSiteSchema {
+export interface WebSiteSchema extends Record<string, unknown> {
   "@context": "https://schema.org";
   "@type": "WebSite";
   name: string;
@@ -47,34 +47,7 @@ export interface WebSiteSchema {
   };
 }
 
-export interface WebPageSchema {
-  "@context": "https://schema.org";
-  "@type": "WebPage";
-  name: string;
-  url: string;
-  description: string;
-  isPartOf: {
-    "@type": "WebSite";
-    name: string;
-    url: string;
-  };
-  about?: {
-    "@type": "Thing";
-    name: string;
-  };
-  breadcrumb?: {
-    "@type": "BreadcrumbList";
-    itemListElement: Array<{
-      "@type": "ListItem";
-      position: number;
-      name: string;
-      item: string;
-    }>;
-  };
-  mainEntity?: JobPostingSchema | FAQSchema;
-}
-
-export interface JobPostingSchema {
+export interface JobPostingSchema extends Record<string, unknown> {
   "@context": "https://schema.org";
   "@type": "JobPosting";
   title: string;
@@ -107,7 +80,7 @@ export interface JobPostingSchema {
   };
 }
 
-export interface FAQSchema {
+export interface FAQSchema extends Record<string, unknown> {
   "@context": "https://schema.org";
   "@type": "FAQPage";
   mainEntity: Array<{
@@ -118,6 +91,42 @@ export interface FAQSchema {
       text: string;
     };
   }>;
+}
+
+export interface JobPostingItemList extends Record<string, unknown> {
+  "@type": "ItemList";
+  itemListElement: Array<{
+    "@type": "ListItem";
+    position: number;
+    item: JobPostingSchema;
+  }>;
+}
+
+export interface WebPageSchema extends Record<string, unknown> {
+  "@context": "https://schema.org";
+  "@type": "WebPage";
+  name: string;
+  url: string;
+  description: string;
+  isPartOf: {
+    "@type": "WebSite";
+    name: string;
+    url: string;
+  };
+  about?: {
+    "@type": "Thing";
+    name: string;
+  };
+  breadcrumb?: {
+    "@type": "BreadcrumbList";
+    itemListElement: Array<{
+      "@type": "ListItem";
+      position: number;
+      name: string;
+      item: string;
+    }>;
+  };
+  mainEntity?: JobPostingSchema | FAQSchema | JobPostingItemList;
 }
 
 // Base configuration
@@ -189,7 +198,7 @@ export function getWebPageSchema({
   url: string;
   description: string;
   breadcrumb?: Array<{ name: string; url: string }>;
-  mainEntity?: JobPostingSchema | FAQSchema;
+  mainEntity?: WebPageSchema['mainEntity'];
 }): WebPageSchema {
   const schema: WebPageSchema = {
     "@context": "https://schema.org",

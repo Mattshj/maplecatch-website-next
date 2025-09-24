@@ -1,0 +1,33 @@
+Contact: mailto:security@maplecatch.com
+Expires: 2025-12-31T23:59:59.000Z
+Acknowledgments: https://maplecatch.com/security-acknowledgments
+Preferred-Languages: en, fr
+Canonical: https://maplecatch.com/.well-known/security.txt
+
+# Security Policy
+# We take security seriously and appreciate responsible disclosure.
+# Please report security vulnerabilities to security@maplecatch.com
+# 
+# Scope: maplecatch.com and all subdomains
+# 
+# Guidelines:
+# - Do not access or modify data that doesn't belong to you
+# - Do not perform any actions that could harm our users or services
+# - Do not publicly disclose vulnerabilities before we've had a chance to fix them
+# 
+# What we're looking for:
+# - Cross-site scripting (XSS)
+# - Cross-site request forgery (CSRF)
+# - SQL injection
+# - Authentication bypass
+# - Authorization flaws
+# - Information disclosure
+# - Server-side request forgery (SSRF)
+# - Remote code execution
+# 
+# What we're NOT looking for:
+# - Social engineering attacks
+# - Physical attacks
+# - Denial of service attacks
+# - Issues in third-party services
+# - Issues that require physical access to a user's device
